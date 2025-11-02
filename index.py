@@ -51,7 +51,6 @@ def esCubos(expr):
         return (abs(a) == 1) and (round(abs(c)**(1/3))**3 == abs(c))
     return False
 
-
 #Funcion principal que resuelve segun el caso de factorizacion
 def resolverFactorizacion(caso):
     expresionTxt = caja.get("1.0", "end").strip()
@@ -120,40 +119,57 @@ def menuPrincipal():
 
     menuOps.add_cascade(label="Funciones", menu=menuFunciones)
 
-    
-
-    tk.Label(main, text="Ingrese la expresión a factorizar:", font=("Arial", 20)).place(x=415, y=110)
-
-
+    tk.Label(main, text="Ingrese la expresión a factorizar",
+            font=("Arial Black", 22), bg="#FFFFFF").place(x=370, y=90)
 
 def cajaTexto():
-    c = tk.Text(main, height=1, width=35, font=("Arial", 20), bg="#ffffff", fg="#000000", padx=10, pady=10)
+    c = tk.Text(main, height=1, width=35, font=("Arial", 20, "bold"),
+                bg="#FFFFFF", fg="#000000", padx=15, pady=13,
+                highlightthickness=2, highlightbackground="#1E90FF")
     c.place(x=350, y=150)
     return c
 
 def salidaTexto():
-    salida = tk.Text(main, height=10, width=90, font=("Arial", 14), bg="#f7f7f7")
-    salida.place(x=130, y=220)
-    salida.config(state="disabled")
-    return salida
+    s = tk.Text(main, height=10, width=90, font=("Consolas", 13),
+                bg="#F3F3F3", fg="#1A1A1A",
+                highlightthickness=2, highlightbackground="#1E90FF",
+                relief="flat", padx=10, pady=10)
+    s.place(x=205, y=230)
+    s.config(state="disabled")
+    return s
+
+def botonSalir(texto, x, y):
+    tk.Button(main, text=texto, bg="#4D3338", fg="white",
+              font=("Arial", 12, "bold"), width=12, height=1,
+              activebackground="#23B37C", cursor="hand2",
+              relief="flat", bd=4,
+              command=main.quit).place(x=x, y=y)
 
 def boton(texto, x, y):
-    tk.Button( main,text=texto,bg="#ffffff",width=30, height=2,command=lambda t=texto: resolverFactorizacion(t)).place(x=x, y=y)
-
+    tk.Button(main, text=texto, bg="#1E90FF", fg="white",
+              font=("Arial", 12, "bold"), width=24, height=2,
+              activebackground="#104E8B", cursor="hand2",
+              relief="flat", bd=5,
+              command=lambda t=texto: resolverFactorizacion(t)).place(x=x, y=y)
+    
 def botonReiniciar(texto, x, y):
-    tk.Button( main,text=texto,bg="#ffffff",width=30, height=2,command=reiniciar).place(x=x, y=y)
+    tk.Button(main, text=texto, bg="#DC143C", fg="white",
+              font=("Arial", 12, "bold"), width=12, height=1,
+              activebackground="#8B0000", cursor="hand2",
+              relief="flat", bd=4,
+              command=reiniciar).place(x=x, y=y)
 
 main = tk.Tk()
 main.title("Casos de factorización")
 main.geometry("1280x720")
-
 
 insertarFondo()
 menuPrincipal()
 caja = cajaTexto()
 salida = salidaTexto()
 
-botonReiniciar("Limpiar", 1050, 50)
+botonReiniciar("Limpiar", 1050, 230)
+botonSalir("Salir", 1050, 270)
 boton("Factor Común", 200, 500)
 boton("Trinomio Cuadrado Perfecto", 200, 600)
 boton("Diferencia De Cuadrados", 500, 500)
